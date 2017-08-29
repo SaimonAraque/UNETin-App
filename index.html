@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Índice UNET v0.1 alpha</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+<!--         <form action="#" class="form">
+            <div class="form__comp">
+                <label for="materia"> Materia </label>
+                <input type="text" class="form__input" id="materia" autocomplete="off" required>
+            </div>
+            <div class="form__comp">
+                <label for="unidad"> Unidades </label>
+                <input type="number" class="form__input" id="unidad" min="1" max="4" required >
+            </div>
+            <div class="form__comp">
+                <label for="nota"> Nota </label>
+                <input type="number" class="form__input" id="nota" min="1" max="9" required >
+            </div>
+            <button onclick="validar()" class="form__button">Enviar</button>
+            <button onclick="calcular()" class="form__button">Calcular</button>
+        </form> -->
+        <button id="agregarMateria">Agregar</button>
+        <table class="lista" id="lista">
+            <tr>
+                <th class="lista__top">Materia</th>
+                <th class="lista__top">Unidades</th>
+                <th class="lista__top">Nota</th>
+            </tr>
+            <tr>
+                <td class="lista__comp"> Índice </td>
+                <td class="lista__comp" id="unidadesTotales"></td>
+            </tr>
+        </table> 
+
+        <script src="scripts.js"></script>
+    </body>
+</html>

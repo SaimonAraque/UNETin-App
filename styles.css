@@ -1,0 +1,71 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    width: 20%;
+}
+
+.form__comp {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+}
+
+.form__button {
+    margin: 8px;
+    width: 50%;
+    align-self: flex-end;
+}
+
+.lista {
+    border-collapse: collapse;
+    width: 50%;
+}
+
+.lista__top, .lista__comp {
+    border: 1px solid #ddd;
+    text-align: left;
+    height: 2em;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.error__contain {
+    position: fixed;
+    width: 350px;
+    background-color: salmon;
+    top: 16px;
+    left: 80%;
+    transform: translate(-50%, 0);
+}
+
+.error__button {
+    border: none;
+    border-radius: 50%;
+    background: steelblue;
+    color: white;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.error__button:hover {
+    color: steelblue;
+    background: white;
+}
+
+.error__message {
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+}
+
+.inner-input {
+    border: none;
+    height: 100%;
+    width: 100%;
+}
