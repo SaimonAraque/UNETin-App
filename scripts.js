@@ -15,20 +15,21 @@ class Lista {
             if(elementoEvento.classList.contains('materiaClass')) {
                 if(elementoEvento.checkValidity() === false) {
                     showError('Escriba el nombre de la materia');
+                    elementoEvento.value = "";
                     return false;
                 }
                 this.materias.push(elementoEvento.value);
             } else if(elementoEvento.classList.contains('unidadesClass')){
                 if(elementoEvento.validity.rangeOverflow || elementoEvento.validity.rangeUnderflow) {
                     showError('Escriba la cantidad de unidades en el rango 1 - 4');
-                    elementoEvento.value = null;
+                    elementoEvento.value = "";
                     return false;
                 }
                 this.unidades.push(parseInt(elementoEvento.value));
             } else if(elementoEvento.classList.contains('notaClass')) {
                 if(elementoEvento.validity.rangeOverflow || elementoEvento.validity.rangeUnderflow) {
                     showError('Escriba una nota en el rango 1 - 9');
-                    elementoEvento.value = null;
+                    elementoEvento.value = "";
                     return false;
                 }
                 this.notas.push(parseInt(elementoEvento.value));
