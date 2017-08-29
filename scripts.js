@@ -33,7 +33,14 @@ class Lista {
                 }
                 this.notas.push(parseInt(elementoEvento.value));
             }
-            this.calcular();
+            let validarCompletos = [...elementoEvento.parentElement.parentElement.children];
+            //console.dir(validarCompletos[0].firstElementChild.value);
+
+            if(validarCompletos[0].firstElementChild.value !== "" &&
+               validarCompletos[1].firstElementChild.value !== "" &&
+               validarCompletos[2].firstElementChild.value !== "") {
+                this.calcular();
+            }
         });
     }
 
@@ -55,8 +62,6 @@ class Lista {
                 componente, 
                 this.lista.firstElementChild.lastElementChild);
     }
-
-
 
     calcular(){
         if(this.materias[0] != null) {
@@ -88,32 +93,3 @@ function showError(errorMessage) {
     exitButton.addEventListener('click', () => document.body.removeChild(error));
     
 }
-
-
-// function validar() {
-//     let validarMateria = document.querySelector('#materia');
-//     let validarUnidades= document.querySelector('#unidad');
-//     let validarNota    = document.querySelector('#nota');
-//     if(    validarMateria.checkValidity()   == false 
-//         || validarElemento(validarNota)     == false
-//         || validarElemento(validarUnidades) == false) {
-//             showError("Ingrese el nombre de la materia, la cantidad de unidades (1 - 4) y la nota (1 - 9)");
-//             return false;
-//     }
-
-//     if(materias.indexOf(validarMateria.value) !== -1) {
-//         showError("La materia ya existe");
-//     } else {
-//         materias
-//             .push(validarMateria.value);
-//         unidades
-//             .push(parseInt(validarUnidades.value));
-//         notas
-//             .push(parseInt(validarNota.value));
-//         agregarMateria(validarMateria.value, validarUnidades.value, validarNota.value);
-//     }
-
-//     validarMateria.value = "";
-//     validarUnidades.value = "";
-//     validarNota.value = "";
-// }
