@@ -12,56 +12,81 @@ class Lista {
 
         this.lista.addEventListener('change', (e) => {
             let elementoEvento = e.target;
+            let trElemento     = elementoEvento.parentElement.parentElement;
+            let elementoIndex  = trElemento.rowIndex - 1;
+
             if(elementoEvento.classList.contains('materiaClass')) {
-                if(elementoEvento.checkValidity() === false) {
+                if(  elementoEvento.checkValidity() === false  ) {
                     showError('Escriba el nombre de la materia');
-                    elementoEvento.value = "";
-                    return false;
-                }
-                this.materias.push(elementoEvento.value);
-            } else if(elementoEvento.classList.contains('unidadesClass')){
+                } 
+                this.validarValor(this.materias, elementoEvento.value, elementoIndex);
+                
+            } else if(  elementoEvento.classList.contains('unidadesClass')  ){
                 if(elementoEvento.validity.rangeOverflow || elementoEvento.validity.rangeUnderflow) {
                     showError('Escriba la cantidad de unidades en el rango 1 - 4');
                     elementoEvento.value = "";
-                    return false;
-                }
-                this.unidades.push(parseInt(elementoEvento.value));
-            } else if(elementoEvento.classList.contains('notaClass')) {
+                } 
+                this.validarValor(this.unidades, elementoEvento.value, elementoIndex, 1);
+
+            } else if(  elementoEvento.classList.contains('notaClass')  ) {
                 if(elementoEvento.validity.rangeOverflow || elementoEvento.validity.rangeUnderflow) {
                     showError('Escriba una nota en el rango 1 - 9');
                     elementoEvento.value = "";
-                    return false;
-                }
-                this.notas.push(parseInt(elementoEvento.value));
+                } 
+                this.validarValor(this.notas, elementoEvento.value, elementoIndex, 1);
             }
             let validarCompletos = [...elementoEvento.parentElement.parentElement.children];
-            //console.dir(validarCompletos[0].firstElementChild.value);
 
             if(validarCompletos[0].firstElementChild.value !== "" &&
-               validarCompletos[1].firstElementChild.value !== "" &&
-               validarCompletos[2].firstElementChild.value !== "") {
+                validarCompletos[1].firstElementChild.value !== "" &&
+                validarCompletos[2].firstElementChild.value !== "") {
+                 this.calcular();
+            }
+        });
+
+        this.lista.addEventListener('click', e => {
+            let botonInterno = e.target;
+            let trElemento     = botonInterno.parentElement.parentElement;
+            let elementoIndex  = trElemento.rowIndex - 1;
+
+            if(botonInterno.classList.contains('inner-button')) {
+                trElemento.remove();
+                this.materias[elementoIndex] = "";
+                this.unidades[elementoIndex] = "";
+                this.notas[elementoIndex] = "";
                 this.calcular();
             }
         });
     }
 
+    validarValor(array, valor, indice, number = 0){
+        if(valor === "") {
+            array[indice] = "";
+            console.log(array.filter( e => e != ""));
+        } else {
+            if(number != 0) array[indice] = parseInt(valor);
+            else array[indice] = valor;
+        }
+    }
+
     agregarMateria(materia, unidades, nota) {
         let componente = document.createElement('tr');
+        componente.classList.add('lista__row');
         componente.innerHTML = `
             <td class="lista__comp">
                 <input type="text" placeholder="${materia}" class="inner-input materiaClass" required>
             </td>
             <td class="lista__comp">
-                <input type="number" placeholder="${unidades}" class="inner-input unidadesClass" min="1" max="4" required>
+                <input type="number" class="inner-input unidadesClass" min="1" max="4" required>
             </td>
             <td class="lista__comp">
-                <input type="number" placeholder="${nota}" class="inner-input notaClass" min="1" max="9" required>
+                <input type="number" class="inner-input notaClass" min="1" max="9" required>
+            </td>
+            <td class="lista__comp">
+                <button class="inner-button" id="removeButton">X</button>
             </td>
         `;
-        this.lista
-            .firstElementChild.insertBefore(
-                componente, 
-                this.lista.firstElementChild.lastElementChild);
+        this.lista.appendChild(componente);
     }
 
     calcular(){
@@ -72,7 +97,13 @@ class Lista {
             });
 
             notasCalculo = notasCalculo.reduce( (a,b) => a + b );
-            this.totales.innerHTML = `${(notasCalculo / unidadesTotales).toFixed(2)}`;
+            let val = (notasCalculo / unidadesTotales).toFixed(2);
+            console.log(val);
+            if(isNaN(val)) {
+                this.totales.innerHTML = "";
+            } else {
+                this.totales.innerHTML = `${val}`;
+            }
         }
     }
 }

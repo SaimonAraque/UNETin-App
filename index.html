@@ -6,19 +6,29 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <button id="agregarMateria">Agregar</button>
-        <table class="lista" id="lista">
-            <tr>
-                <th class="lista__top">Materia</th>
-                <th class="lista__top">Unidades</th>
-                <th class="lista__top">Nota</th>
-            </tr>
-            <tr>
-                <td class="lista__comp"> Índice </td>
-                <td class="lista__comp" id="unidadesTotales"></td>
-            </tr>
-        </table> 
 
+        <div class="lista-container">
+            <div class="indice-container">
+                <div class="indice-subcontainer">
+                    <div class="indice__label">
+                        <p class="indice__texto"> Índice</p>
+                        <p class="indice__texto" id="unidadesTotales"></p>
+                     </div>
+                     <button id="agregarMateria" class="agregar-button">Agregar materia</button>
+                     <button id="eliminarTodo" class="eliminar-button">Eliminar todo</button>
+                </div>
+            </div>
+            <div class="lista-subcontainer">
+                <h1 class="lista__title">Índice académico</h1>
+                <table class="lista" id="lista">
+                    <tr class="lista__row lista__head">
+                        <th class="lista__top">Materia</th>
+                        <th class="lista__top">Unidades</th>
+                        <th class="lista__top">Nota</th>
+                    </tr>
+                </table> 
+            </div>
+        </div>
         <script src="scripts.js"></script>
     </body>
 </html>
