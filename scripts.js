@@ -1,6 +1,7 @@
 let error         = document.createElement('div');
     error.classList.add('error__contain')
-let agregarButton = document.querySelector('#agregarMateria');
+let agregarButton  = document.querySelector('#agregarMateria');
+let eliminarButton = document.querySelector('#eliminarTodo');
 
 class Lista {
     constructor(listaID){
@@ -37,8 +38,7 @@ class Lista {
             }
             let validarCompletos = [...elementoEvento.parentElement.parentElement.children];
 
-            if(validarCompletos[0].firstElementChild.value !== "" &&
-                validarCompletos[1].firstElementChild.value !== "" &&
+            if( validarCompletos[1].firstElementChild.value !== "" &&
                 validarCompletos[2].firstElementChild.value !== "") {
                  this.calcular();
             }
@@ -54,6 +54,10 @@ class Lista {
                 this.materias[elementoIndex] = "";
                 this.unidades[elementoIndex] = "";
                 this.notas[elementoIndex] = "";
+                this.materias = this.materias.filter( e => e !== "");
+                this.unidades = this.unidades.filter( e => e !== "");
+                this.notas    = this.notas.filter( e => e !== "");
+
                 this.calcular();
             }
         });
@@ -72,6 +76,7 @@ class Lista {
     agregarMateria(materia, unidades, nota) {
         let componente = document.createElement('tr');
         componente.classList.add('lista__row');
+        componente.classList.add('lista__delete');
         componente.innerHTML = `
             <td class="lista__comp">
                 <input type="text" placeholder="${materia}" class="inner-input materiaClass" required>
@@ -90,7 +95,7 @@ class Lista {
     }
 
     calcular(){
-        if(this.materias[0] != null) {
+        if(this.notas[0]) {
             let unidadesTotales = this.unidades.reduce( (a,b) => a + b);
             let notasCalculo    = this.notas.map( (a,i) => {
                 return a * this.unidades[i];
@@ -98,12 +103,14 @@ class Lista {
 
             notasCalculo = notasCalculo.reduce( (a,b) => a + b );
             let val = (notasCalculo / unidadesTotales).toFixed(2);
-            console.log(val);
+
             if(isNaN(val)) {
                 this.totales.innerHTML = "";
             } else {
                 this.totales.innerHTML = `${val}`;
             }
+        } else {
+            this.totales.innerHTML = "";
         }
     }
 }
@@ -112,6 +119,20 @@ let miLista = new Lista('lista');
 
 agregarButton.addEventListener('click', () => {
     miLista.agregarMateria('Nombre', 'Unidades', 'Nota');
+});
+
+eliminarButton.addEventListener('click', () => {
+    miLista.materias = [];
+    miLista.notas    = [];
+    miLista.unidades = [];
+
+    let borrarMaterias = document.querySelectorAll('.lista__delete')
+
+    for(let i of borrarMaterias) {
+        i.remove();
+    }
+
+    miLista.calcular();
 });
 
 
